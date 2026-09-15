@@ -41,3 +41,9 @@ div {
   font-size: 1.2em; 
 }
 
+.description {
+  font-size: 0.9em;
+  font-style: italic;
+  color: #eaf7f9;
+  padding: 0 4px;
+}
