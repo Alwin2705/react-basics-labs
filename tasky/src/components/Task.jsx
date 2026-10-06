@@ -1,52 +1,97 @@
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardHeader from '@mui/material/CardHeader';
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
+
 const Task = (props) => {
+  let priorityStyle;
 
-    let priorityStyle;
+  if (props.priority === "high") {
+    priorityStyle = { color: "red", fontWeight: "bold" };
+  } else if (props.priority === "medium") {
+    priorityStyle = { color: "orange", fontWeight: "bold" };
+  } else {
+    priorityStyle = { color: "green", fontWeight: "bold" };
+  }
 
-    if (props.priority === "high") {
-        priorityStyle = {
-            color: "red",
-            fontWeight: "bold"
-        };
-    } else if (props.priority === "medium") {
-        priorityStyle = {
-            color: "orange",
-            fontWeight: "bold"
-        };
-    } else {
-        priorityStyle = {
-            color: "green",
-            fontWeight: "bold"
-        };
-    }
+  return (
+    <Grid size={{ xs: 12, md: 4 }}>
+      <Card
+        sx={{
+          backgroundColor: props.done ? 'lightgrey' : 'lightblue',
+          padding: '20px'
+        }}
+      >
+        <CardHeader
+          title={props.title}
+          sx={{
+            backgroundColor: 'white',
+            borderRadius: '3px',
+            padding: '20px',
+            textAlign: 'center'
+          }}
+        />
 
-    return (
-        <div
-            className="card"
-            style={{
-                backgroundColor: props.done ? 'lightgrey' : '#5bb4c4'
+        <CardContent>
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'baseline',
+              mb: 2,
+              padding: '20px'
             }}
-        >
-            <p className="title">{props.title}</p>
-            <p>Due: {props.deadline}</p>
-            <p className="description">{props.description}</p>
+          >
+            <Typography component="p" variant="subtitle2" color="text.primary">
+              Due: {props.deadline}
+            </Typography>
+          </Box>
 
-            <p style={priorityStyle}>
-                Priority: {props.priority}
-            </p>
+          <Typography
+            component="p"
+            variant="subtitle1"
+            align="center"
+            sx={{ fontStyle: 'italic' }}
+          >
+            {props.description}
+          </Typography>
 
-            <button onClick={props.markDone} className="doneButton">
-                Done
-            </button>
+          <Typography
+            component="p"
+            variant="subtitle2"
+            align="center"
+            sx={{ mt: 2, ...priorityStyle }}
+          >
+            Priority: {props.priority}
+          </Typography>
+        </CardContent>
 
-            <button
-                className="deleteButton"
-                onClick={props.deleteTask}
-            >
-                Delete
-            </button>
+        <CardActions sx={{ justifyContent: 'space-between', padding: '20px' }}>
+          <Button
+            variant="contained"
+            size="small"
+            color="success"
+            onClick={props.markDone}
+          >
+            Done
+          </Button>
 
-        </div>
-    );
-}
+          <Button
+            variant="contained"
+            size="small"
+            color="error"
+            onClick={props.deleteTask}
+          >
+            Delete
+          </Button>
+        </CardActions>
+      </Card>
+    </Grid>
+  );
+};
 
 export default Task;
